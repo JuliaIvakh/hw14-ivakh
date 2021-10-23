@@ -1,24 +1,21 @@
-const userStr = prompt("Enter any string");
-const userNum = +prompt("Enter any number");
-const userSymb = prompt("Enter any symbol");
-const userBool = prompt("Enter true/false");
+function padString(str, num, symb = "", right = true) {
+  if (typeof str !== "string") return "error with a string";
+  if (typeof num !== "number" && isNaN(num))
+    return "error with a string length";
+  if (typeof symb !== "string" && symb.length !== 1)
+    return "error with a symbol";
+  if (typeof right !== "boolean") return "error with a side";
+  if (str.length >= num) return str.substring(0, num);
 
-function padString(str, num, symb, bool) {
-  if (str === null) {
-    return alert("error with a string");
-  } else if (isNaN(num)) {
-    return alert("error with a number");
-  } else if (symb === null) {
-    return alert("error with a symbol");
-  } else if (bool != "true" && bool != "false") {
-    return alert("error with a true/false");
-  } else if (bool === "true" && str.length <= num) {
-    return console.log(str + symb.repeat(num - str.length));
-  } else if (bool === "false" && str.length <= num) {
-    return console.log(symb.repeat(num - str.length) + str);
-  } else if (str.length >= num) {
-    return console.log(str.substr(0, num));
+  let localString = "";
+
+  for (let i = str.length; i < num; i++) {
+    localString += symb;
   }
+
+  return right ? str + localString : localString + str;
 }
 
-padString(userStr, userNum, userSymb, userBool);
+console.log(padString("hello", 8, "*"));
+console.log(padString("hello", 6, "*", false));
+console.log(padString("hello", 2));
